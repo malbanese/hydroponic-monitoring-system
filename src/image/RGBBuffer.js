@@ -1,10 +1,9 @@
-var PImage = require('pureimage');
-var fs = require('fs');
-var streamBuffers = require('stream-buffers');
-
+const PImage = require('pureimage');
+const fs = require('fs');
+const streamBuffers = require('stream-buffers');
 
 /**
- * Generates a filled RGB buffer provided color and dimensions.
+ * Generates a filled RGB buffer with the provided color and dimensions.
  * @param  {Number} w Width
  * @param  {Number} h Height
  * @param  {Number} r Red

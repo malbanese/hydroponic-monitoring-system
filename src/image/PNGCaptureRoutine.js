@@ -1,9 +1,8 @@
-var RGBImage = require('./RaspiRGBImage');
-var Overlay = require('./Overlay').Overlay;
-var RGBBuffer = require('./RGBBuffer');
-var HumidTemp = require('../sensor/HumidTemp');
-
-var overlay = new Overlay();
+const RGBImage = require('./RaspiRGBImage');
+const Overlay = require('./Overlay').Overlay;
+const RGBBuffer = require('./RGBBuffer');
+const HumidTemp = require('../sensor/HumidTemp');
+const overlay = new Overlay();
 
 /**
  * Returns the modulated time until the next interval, starting at epoch time.
@@ -76,12 +75,20 @@ function getPNGCapturePromise(imageWidth, imageHeight) {
   });
 };
 
+/**
+ * Returns the average brightness of an RGB bitmap. This is computed by
+ * calculating the average greyscale value of the entire image.
+ * @param  {Number} rgbBitmap The bitmap to iterate over.
+ * @return {Number} A number between 0-255 depending on the brightness.
+ */
 function getAverageBrightness(rgbBitmap) {
   let greyscaleValue = 0;
 
   for(var x=0; x < rgbBitmap.width; x++) {
     for(var y=0; y < rgbBitmap.height; y++) {
       var rgb = rgbBitmap.getPixelRGBA(x,y);
+
+      // Using masking, calculate the average of the three color channels.
       greyscaleValue += (((0xFF000000 & rgb) >>> 24) + ((0xFF0000 & rgb) >>> 16) + ((0xFF00 & rgb) >>> 8)) / 3;
     }
   }
