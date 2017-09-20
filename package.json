@@ -1,0 +1,22 @@
+{
+  "name": "hydroponic-monitor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "raspicam-rgb-image.js",
+  "scripts": {
+    "start": "node src/server/HydroServer.js",
+    "fstart": "forever start src/server/HydroServer.js",
+    "fstop": "forever stop src/server/HydroServer.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dateformat": "^2.0.0",
+    "express": "^4.15.3",
+    "pureimage": "^0.1.1",
+    "serve-index": "^1.9.0",
+    "stream-buffers": "^3.0.1",
+    "serve-index": "^1.9.0",
+    "node-dht-sensor": "^0.0.32"
+  }
+}
