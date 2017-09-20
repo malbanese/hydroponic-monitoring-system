@@ -111,7 +111,7 @@ class Overlay {
    * @param  {Bitmap} imageBitmap  The image to draw to the target.
    * @param  {Number} yAnchor      The Y position to draw the icon at.
    */
-  function drawAnchoredIcon(targetBitmap, imageBitmap, yAnchor) {
+  drawAnchoredIcon(targetBitmap, imageBitmap, yAnchor) {
     // Center Image
     let x = settings.ICON_IMAGE_X_OFFSET - imageBitmap.width / 2;
 
