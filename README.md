@@ -13,6 +13,8 @@ and a camera to provide myself a quick and easy way to monitor my plants :).
 Timelapse Video of the image captures:
 https://i.imgur.com/VIe4xvk.gif
 
+![Example from camera](https://i.imgur.com/KXxC2ZI.jpg)
+
 ![Basil from the timelapse](https://i.imgur.com/QHwr3QJ.jpg)
 
 # Hardware List
