@@ -23,8 +23,8 @@ schedule.scheduleJob('*/5 * * * *', function(){
 // allow the image to be taken.
 schedule.scheduleJob('59 */5 * * * *', function(){
   // Write the file to the system.
-  fs.writeFile(`./bin/${lastCaptureTime}.png`, captureResult.pngBuffer, (err) => {
-    console.log(`Saving capture from time ${lastCaptureTime}.`);
+  fs.writeFile(`./bin/${captureResult.captureEndTime}.png`, captureResult.pngBuffer, (err) => {
+    console.log(`Saving capture from time ${captureResult.captureEndTime}.`);
 
     if(!err) {
       console.log("Problem saving image to the filesystem.")
@@ -45,8 +45,7 @@ function capturePicture() {
  */
 function pngCaptureCallback(result) {
   captureResult = result;
-  lastCaptureTime = new Date().getTime();
-  console.log(`Capture | Brightness: ${result.brightness} | Time: ${lastCaptureTime}`);
+  console.log(`Capture | Brightness: ${result.brightness} | Time: ${result.captureEndTime} | Duration: ${result.captureDuration}`);
 }
 
 /**

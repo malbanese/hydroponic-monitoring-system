@@ -10,10 +10,15 @@ const overlay = new Overlay();
  * @param  {Number}   imageHeight The height of the image to capture.
  * @return {{
  *         pngBuffer: {Buffer},
- *         brightness: {Number}
+ *         brightness: {Number},
+ *         captureStartTime: {Number}.
+ *         captureEndTime: {Number},
+ *         captureDuration: {Number}
  * }}
  */
 function getPNGCapturePromise(imageWidth, imageHeight) {
+  let captureStartTime = (new Date()).getTime();
+
   return new Promise((resolve, reject) => {
     Promise.all([
       RGBImage.takeRGBPicture(imageWidth, imageHeight),
@@ -34,11 +39,15 @@ function getPNGCapturePromise(imageWidth, imageHeight) {
       }).then(() => {
         // Write out the overlay into a PNG buffer.
         return RGBBuffer.writeBitmapToPNGBuffer(rgbBitmap).then((pngBuffer) => {
+          let captureEndTime = (new Date()).getTime();
 
           // Resolve with the image and the calculated brightness.
           resolve({
             pngBuffer,
-            brightness
+            brightness,
+            captureStartTime,
+            captureEndTime,
+            captureDuration: captureEndTime - captureStartTime
           });
         });
       });
