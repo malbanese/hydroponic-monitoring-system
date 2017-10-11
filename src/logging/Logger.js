@@ -18,7 +18,7 @@ winston.add(winston.transports.Console, {
   prettyPrint: true,
   colorize: true,
   silent: false,
-  timestamp: false
+  timestamp: true
 });
 
 // Create the rotating transport
