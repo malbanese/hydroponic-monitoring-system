@@ -10,7 +10,10 @@ information I needed without manually opening the tent.
 To create a remote monitoring system, I used a Raspberry Pi, loaded with sensors
 and a camera to provide myself a quick and easy way to monitor my plants :).
 
-![Timelapse video of image capture](https://i.imgur.com/VIe4xvk.gif)
+Timelapse Video of the image captures:
+https://i.imgur.com/VIe4xvk.gif
+
+![Example from camera](https://i.imgur.com/KXxC2ZI.jpg)
 
 ![Basil from the timelapse](https://i.imgur.com/QHwr3QJ.jpg)
 
