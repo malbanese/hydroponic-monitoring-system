@@ -30,7 +30,8 @@ schedule.scheduleJob('59 */30 * * * *', function(){
     logger.info(`Saving capture from time ${captureResult.captureEndTime}.`);
 
     if(err) {
-      logger.error("Problem saving image to the filesystem.");
+      logger.error("Problem saving image to the filesystem. ");
+      logger.error(error.toString());
     }
   });
 });
@@ -39,7 +40,11 @@ schedule.scheduleJob('59 */30 * * * *', function(){
  * Captures a picture and updates all related variables.
  */
 function capturePicture() {
-  PNGCaptureRoutine.getPNGCapturePromise(imageWidth, imageHeight).then(pngCaptureCallback);
+  PNGCaptureRoutine.getPNGCapturePromise(imageWidth, imageHeight)
+    .catch((error) => {
+      logger.error("Could not complete PNG capture routine.");
+      logger.error(error.toString());
+    }).then(pngCaptureCallback);
 }
 
 /**
