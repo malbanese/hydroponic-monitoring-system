@@ -5,6 +5,8 @@ const app = express();
 const fs = require('fs');
 const serveIndex = require('serve-index');
 const schedule = require('node-schedule');
+const logger = require('../logging/Logger');
+
 var imageWidth = 1280;
 var imageHeight = 720;
 var minimumSaveBrightness = 25;
@@ -12,6 +14,7 @@ var captureResult = null;
 var lastCaptureTime = -1;
 
 // Take an initial picture so we don't have to wait to see the results.
+logger.info("Server started, taking initial picture.");
 capturePicture();
 
 // Schedule to take a picture every 5 minutes.
@@ -24,10 +27,10 @@ schedule.scheduleJob('*/5 * * * *', function(){
 schedule.scheduleJob('59 */30 * * * *', function(){
   // Write the file to the system.
   fs.writeFile(`./bin/${captureResult.captureEndTime}.png`, captureResult.pngBuffer, (err) => {
-    console.log(`Saving capture from time ${captureResult.captureEndTime}.`);
+    logger.info(`Saving capture from time ${captureResult.captureEndTime}.`);
 
-    if(!err) {
-      console.log("Problem saving image to the filesystem.");
+    if(err) {
+      logger.error("Problem saving image to the filesystem.");
     }
   });
 });
@@ -44,7 +47,7 @@ function capturePicture() {
  */
 function pngCaptureCallback(result) {
   captureResult = result;
-  console.log(`Capture | Brightness: ${result.brightness} | Time: ${result.captureEndTime} | Duration: ${result.captureDuration}`);
+  logger.info(`Capture | Brightness: ${result.brightness} | Time: ${result.captureEndTime} | Duration: ${result.captureDuration}`);
 }
 
 /**
