@@ -3,7 +3,7 @@ require('winston-daily-rotate-file');
 
 // Create the rotating transport
 var transport = new (winston.transports.DailyRotateFile)({
-  filename: './log',
+  filename: './log/log',
   datePattern: 'yyyy-MM-dd.',
   prepend: true,
   level: process.env.ENV === 'development' ? 'debug' : 'info'
