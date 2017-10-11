@@ -21,14 +21,13 @@ schedule.scheduleJob('*/5 * * * *', function(){
 
 // Schedule to save an image every 30 minutes. This is offset by some time to
 // allow the image to be taken.
-schedule.scheduleJob('59 */5 * * * *', function(){
+schedule.scheduleJob('59 */30 * * * *', function(){
   // Write the file to the system.
   fs.writeFile(`./bin/${captureResult.captureEndTime}.png`, captureResult.pngBuffer, (err) => {
     console.log(`Saving capture from time ${captureResult.captureEndTime}.`);
 
     if(!err) {
-      console.log("Problem saving image to the filesystem.")
-      lastSave = currentTime;
+      console.log("Problem saving image to the filesystem.");
     }
   });
 });
