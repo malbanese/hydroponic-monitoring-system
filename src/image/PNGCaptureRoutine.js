@@ -69,7 +69,6 @@ function getAverageBrightness(rgbBitmap) {
 
 // The public module exports~
 module.exports = {
-  startPNGCaptureRoutine,
   getPNGCapturePromise,
   getAverageBrightness
 };
