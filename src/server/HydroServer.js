@@ -52,7 +52,7 @@ function capturePicture() {
  */
 function pngCaptureCallback(result) {
   captureResult = result;
-  logger.info(`Capture | Brightness: ${result.brightness} | Time: ${result.captureEndTime} | Duration: ${result.captureDuration}`);
+  logger.info(`Capture | Brightness: ${result.brightness.toFixed(2)} | Time: ${result.captureEndTime} | Duration: ${result.captureDuration}`);
 }
 
 /**
