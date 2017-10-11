@@ -13,7 +13,7 @@ var transport = new (winston.transports.DailyRotateFile)({
 var logger = new (winston.Logger)({
   transports: [
     transport,
-    winston.transports.Console
+    new winston.transports.Console()
   ]
 });
 
