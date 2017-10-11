@@ -5,35 +5,6 @@ const HumidTemp = require('../sensor/HumidTemp');
 const overlay = new Overlay();
 
 /**
- * Returns the modulated time until the next interval, starting at epoch time.
- * @param  {Number} msInterval The millisecond interval to query
- * @return {Number}            The epoch time modulated number of ms until the
- *                             next instance of this interval.
- */
-function getMSUntilNext(msInterval) {
-  return msInterval - (new Date).getTime() % msInterval;
-}
-
-/**
- * Starts a callback loop that fires every hour, on the hour.
- * @param  {Number}   imageWidth  The width of the image to capture.
- * @param  {Number}   imageHeight The height of the image to capture.
- * @param {NumbeR}    intervalMS The interval at which to take pictures.
- * @param  {Function} cb          [description]
- * @return {[type]}               [description]
- */
-function startPNGCaptureRoutine(imageWidth, imageHeight, intervalMS, cb) {
-  setTimeout(() => {
-    getPNGCapturePromise(imageWidth, imageHeight, 30).then((pngResult) => {
-      cb(pngResult);
-      startPNGCaptureRoutine(imageWidth, imageHeight, intervalMS, cb);
-    }).catch((error) => {
-      // Nothing needed here.
-    });
-  }, getMSUntilNext(intervalMS));
-};
-
-/**
  * [getPNGCapturePromise description]
  * @param  {Number}   imageWidth  The width of the image to capture.
  * @param  {Number}   imageHeight The height of the image to capture.
@@ -98,7 +69,6 @@ function getAverageBrightness(rgbBitmap) {
 
 // The public module exports~
 module.exports = {
-  getMSUntilNext,
   startPNGCaptureRoutine,
   getPNGCapturePromise,
   getAverageBrightness
