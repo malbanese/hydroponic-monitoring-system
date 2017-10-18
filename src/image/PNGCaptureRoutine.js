@@ -51,7 +51,7 @@ function getPNGCapturePromise(imageWidth, imageHeight) {
           ).then((compressedPng) => {
             // Resolve with the compressed PNG and other variables.
             resolve({
-              compressedPng,
+              pngBuffer: compressedPng,
               brightness,
               captureStartTime,
               captureEndTime,
