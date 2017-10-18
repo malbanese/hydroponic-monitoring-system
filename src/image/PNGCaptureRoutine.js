@@ -44,20 +44,27 @@ function getPNGCapturePromise(imageWidth, imageHeight) {
         // Write out the overlay into a PNG buffer.
         return RGBBuffer.writeBitmapToPNGBuffer(rgbBitmap).then((pngBuffer) => {
           let captureEndTime = (new Date()).getTime();
-
-          return imagemin.buffer(
-            pngBuffer,
-            imageminPngquant({quality: '65-80'})
-          ).then((compressedPng) => {
-            // Resolve with the compressed PNG and other variables.
             resolve({
-              pngBuffer: compressedPng,
+              pngBuffer,
               brightness,
               captureStartTime,
               captureEndTime,
               captureDuration: captureEndTime - captureStartTime
             });
-          });
+
+          // return imagemin.buffer(
+          //   pngBuffer,
+          //   imageminPngquant({quality: '65-80'})
+          // ).then((compressedPng) => {
+          //   // Resolve with the compressed PNG and other variables.
+          //   resolve({
+          //     pngBuffer: compressedPng,
+          //     brightness,
+          //     captureStartTime,
+          //     captureEndTime,
+          //     captureDuration: captureEndTime - captureStartTime
+          //   });
+          // });
         });
       })
     });
