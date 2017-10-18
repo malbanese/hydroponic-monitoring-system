@@ -4,6 +4,9 @@ const RGBBuffer = require('./RGBBuffer');
 const HumidTemp = require('../sensor/HumidTemp');
 const overlay = new Overlay();
 
+const imagemin = require('imagemin');
+const imageminPngquant = require('imagemin-pngquant');
+
 /**
  * [getPNGCapturePromise description]
  * @param  {Number}   imageWidth  The width of the image to capture.
@@ -36,7 +39,8 @@ function getPNGCapturePromise(imageWidth, imageHeight) {
       // Get the correct sensor information to draw our overlay.
       HumidTemp.getHumidityTemperature().then( (result) => {
         overlay.drawOverlay(rgbBitmap, result.temperature, result.humidity);
-      }).then(() => {
+      })
+      .then(() => {
         // Write out the overlay into a PNG buffer.
         return RGBBuffer.writeBitmapToPNGBuffer(rgbBitmap).then((pngBuffer) => {
           let captureEndTime = (new Date()).getTime();
@@ -50,6 +54,16 @@ function getPNGCapturePromise(imageWidth, imageHeight) {
             captureDuration: captureEndTime - captureStartTime
           });
         });
+      })
+      .then((capture) => {
+        return imagemin.buffer(
+          capture.pngBuffer,
+          imageminPngquant({quality: '65-80'})
+        )
+        .then((compressedPng) => {
+            capture.pngBuffer = compressedPng;
+            return capture;
+        })
       });
     });
   });
