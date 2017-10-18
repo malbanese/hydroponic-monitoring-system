@@ -45,26 +45,21 @@ function getPNGCapturePromise(imageWidth, imageHeight) {
         return RGBBuffer.writeBitmapToPNGBuffer(rgbBitmap).then((pngBuffer) => {
           let captureEndTime = (new Date()).getTime();
 
-          // Resolve with the image and the calculated brightness.
-          resolve({
+          return imagemin.buffer(
             pngBuffer,
-            brightness,
-            captureStartTime,
-            captureEndTime,
-            captureDuration: captureEndTime - captureStartTime
+            imageminPngquant({quality: '65-80'})
+          ).then((compressedPng) => {
+            // Resolve with the compressed PNG and other variables.
+            resolve({
+              compressedPng,
+              brightness,
+              captureStartTime,
+              captureEndTime,
+              captureDuration: captureEndTime - captureStartTime
+            });
           });
         });
       })
-      .then((capture) => {
-        return imagemin.buffer(
-          capture.pngBuffer,
-          imageminPngquant({quality: '65-80'})
-        )
-        .then((compressedPng) => {
-            capture.pngBuffer = compressedPng;
-            return capture;
-        })
-      });
     });
   });
 };
