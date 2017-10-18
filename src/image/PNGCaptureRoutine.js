@@ -3,9 +3,8 @@ const Overlay = require('./Overlay').Overlay;
 const RGBBuffer = require('./RGBBuffer');
 const HumidTemp = require('../sensor/HumidTemp');
 const overlay = new Overlay();
-
-const imagemin = require('imagemin');
-const imageminPngquant = require('imagemin-pngquant');
+// const imagemin = require('imagemin');
+// const imageminPngquant = require('imagemin-pngquant');
 
 /**
  * [getPNGCapturePromise description]
