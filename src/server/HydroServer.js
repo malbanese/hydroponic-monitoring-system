@@ -7,6 +7,7 @@ const serveIndex = require('serve-index');
 const schedule = require('node-schedule');
 const logger = require('../logging/Logger');
 
+// Confuration parameters
 var imageWidth = 1280;
 var imageHeight = 720;
 var minimumSaveBrightness = 25;

@@ -3,8 +3,8 @@ const Overlay = require('./Overlay').Overlay;
 const RGBBuffer = require('./RGBBuffer');
 const HumidTemp = require('../sensor/HumidTemp');
 const overlay = new Overlay();
-// const imagemin = require('imagemin');
-// const imageminPngquant = require('imagemin-pngquant');
+const imagemin = require('imagemin');
+const imageminPngquant = require('imagemin-pngquant');
 
 /**
  * [getPNGCapturePromise description]
@@ -43,27 +43,19 @@ function getPNGCapturePromise(imageWidth, imageHeight) {
         // Write out the overlay into a PNG buffer.
         return RGBBuffer.writeBitmapToPNGBuffer(rgbBitmap).then((pngBuffer) => {
           let captureEndTime = (new Date()).getTime();
+          return imagemin.buffer(
+            pngBuffer,
+            {plugins: imageminPngquant({quality: '80'})}
+          ).then((compressedPng) => {
+            // Resolve with the compressed PNG and other variables.
             resolve({
-              pngBuffer,
+              pngBuffer: compressedPng,
               brightness,
               captureStartTime,
               captureEndTime,
               captureDuration: captureEndTime - captureStartTime
             });
-
-          // return imagemin.buffer(
-          //   pngBuffer,
-          //   imageminPngquant({quality: '65-80'})
-          // ).then((compressedPng) => {
-          //   // Resolve with the compressed PNG and other variables.
-          //   resolve({
-          //     pngBuffer: compressedPng,
-          //     brightness,
-          //     captureStartTime,
-          //     captureEndTime,
-          //     captureDuration: captureEndTime - captureStartTime
-          //   });
-          // });
+          });
         });
       })
     });
