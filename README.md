@@ -32,6 +32,8 @@ case, and the mount was adjusted so the plants would be in view of the camera.
 For timelapse creation, I use the following interpolated FFMPEG command:
 > ffmpeg -framerate 15 -pattern_type glob -i '*.png' -c:v libx264 -pix_fmt yuv420p -filter "minterpolate='fps=30'" -y timelapse.mp4
 
+For a slightly more configurable timelapse creation, see https://github.com/malbanese/node-cli-timelapse-stitcher
+
 # Starting the server
 The server uses NPM as a package manager, so all relevant packages must be
 installed on the Raspberry Pi device, by running the npm install command.
